@@ -119,7 +119,7 @@ organisms <- list(mm39=115)
 sources <- ifelse(.Platform$OS.type=="unix",c("ensembl","refseq"),"ensembl")
 
 # If the example is not running in a multicore system, rc is ignored
-buildAnnotationDatabase(organisms,sources,forceDownload=FALSE,db=myDb,rc=0.5)
+#buildAnnotationDatabase(organisms,sources,forceDownload=FALSE,db=myDb,rc=0.5)
 ```
 
 ## Use the database
@@ -156,7 +156,7 @@ if (.Platform$OS.type=="unix") {
 Or as a data frame if you prefer using `asdf=TRUE`. The data frame however does 
 not contain metadata like `Seqinfo` to be used for any susequent validations:
 
-```{r example-3, eval=TRUE, echo=TRUE, tidy=FALSE, message=TRUE, warning=FALSE}
+```{r example-3, eval=FALSE, echo=TRUE, tidy=FALSE, message=TRUE, warning=FALSE}
 # Load standard annotation based on gene body coordinates
 genes <- loadAnnotation(genome="mm39",refdb="ensembl",level="gene",type="gene",
     db=myDb,asdf=TRUE)

@@ -71,9 +71,9 @@ getUcscTableNameUtr <- function(org,refdb) {
                         immediate.=TRUE)
                     return("refGene")
                 },
-                equcab2 = {
+                equcab3 = {
                     warning("No UCSC Genome annotation for Equus ",
-                        "caballus v2! Will use RefSeq instead...",
+                        "caballus v3! Will use RefSeq instead...",
                         immediate.=TRUE)
                     return("refGene")
                 }
@@ -607,9 +607,9 @@ getUcscQuery <- function(org,type,refdb="ucsc") {
                     getUcscTblTpl("ensemblSource",what)
             ))
         },
-        equcab2 = {
+        equcab3 = {
             warning("No UCSC Genome annotation for Equus ",
-                "caballus v2! Will use RefSeq instead...",
+                "caballus v3! Will use RefSeq instead...",
                 immediate.=TRUE)
             return(list(
                 refFlat=getUcscTblTpl("refFlat",what),
@@ -793,7 +793,7 @@ getUcscQuery <- function(org,type,refdb="ucsc") {
                     getUcscTblTpl("ensemblSource",what)
             ))
         },
-        equcab2 = {
+        equcab3 = {
             return(list(
                 refFlat=getUcscTblTpl("refFlat",what),
                 ensemblToGeneName=
@@ -1254,9 +1254,9 @@ getUcscQuery <- function(org,type,refdb="ucsc") {
                 "GROUP BY `gene_name`",
                 "ORDER BY `chromosome`,`start`) AS tmp"))
         },
-        equcab2 = {
+        equcab3 = {
             warning("No UCSC Genome annotation for Equus ",
-                "caballus v2! Will use RefSeq instead...",
+                "caballus v3! Will use RefSeq instead...",
                 immediate.=TRUE)
             return(paste("SELECT `chromosome`,`start`,`end`,`gene_id`,",
                 "`gc_content`,`strand`,`gene_name`,`biotype` FROM",
@@ -1631,7 +1631,7 @@ getUcscQuery <- function(org,type,refdb="ucsc") {
                 "GROUP BY `gene_name`",
                 "ORDER BY `chromosome`,`start`) AS tmp"))
         },
-        equcab2 = {
+        equcab3 = {
             return(paste("SELECT `chromosome`,`start`,`end`,`gene_id`,",
                 "`gc_content`,`strand`,`gene_name`,`biotype` FROM",
                 "(SELECT MAX(`txEnd` - `txStart`) AS `width`,",
@@ -2093,9 +2093,9 @@ getUcscQuery <- function(org,type,refdb="ucsc") {
                 "GROUP BY `gene_name`",
                 "ORDER BY `chromosome`,`start`) AS tmp"))
         },
-        equcab2 = {
+        equcab3 = {
             warning("No UCSC Genome annotation for Equus ",
-                "caballus v11! Will use RefSeq instead...",
+                "caballus v2! Will use RefSeq instead...",
                 immediate.=TRUE)
             return(paste("SELECT `chromosome`,`start`,`end`,`exon_id`,",
                 "`strand`,`gene_id`,`gene_name`,`biotype` FROM",
@@ -2470,7 +2470,7 @@ getUcscQuery <- function(org,type,refdb="ucsc") {
                 "GROUP BY `gene_name`",
                 "ORDER BY `chromosome`,`start`) AS tmp"))
         },
-        equcab2 = {
+        equcab3 = {
             return(paste("SELECT `chromosome`,`start`,`end`,`exon_id`,",
                 "`strand`,`gene_id`,`gene_name`,`biotype` FROM",
                 "(SELECT MAX(`txEnd` - `txStart`) AS `width`,",
@@ -2859,9 +2859,9 @@ getUcscQuery <- function(org,type,refdb="ucsc") {
                 "GROUP BY `transcript_id`",
                 "ORDER BY `chromosome`,`start`"))
         },
-        equcab2 = {
+        equcab3 = {
             warning("No UCSC Genome annotation for Equus ",
-                "caballus v2! Will use RefSeq instead...",
+                "caballus v3! Will use RefSeq instead...",
                 immediate.=TRUE)
             return(paste("SELECT refFlat.chrom AS `chromosome`,",
                 "refFlat.txStart AS `start`,",
@@ -3172,7 +3172,7 @@ getUcscQuery <- function(org,type,refdb="ucsc") {
                 "GROUP BY `transcript_id`",
                 "ORDER BY `chromosome`,`start`"))
         },
-        equcab2 = {
+        equcab3 = {
             return(paste("SELECT refFlat.chrom AS `chromosome`,",
                 "refFlat.txStart AS `start`,",
                 "refFlat.txEnd AS `end`,",

@@ -9,7 +9,7 @@
             btCol = NA),
         annotation = NULL, org = c("hg18", "hg19", "hg38", "mm9", 
             "mm10", "rn5", "rn6", "dm3", "dm6", "danrer7", 
-            "pantro4", "susscr3", "tair10", "equcab2"),
+            "pantro4", "susscr3", "tair10", "equcab3"),
         refdb = c("ensembl", "ucsc", "refseq"), version = "auto",
         transLevel = c("gene", "transcript", "exon"),
         countType = c("gene", "exon","utr"),

@@ -14,7 +14,7 @@ metaseqr2 <- function(
     ),
     annotation=NULL,
     org=c("hg18","hg19","hg38","mm9","mm10","mm39","rn5","rn6","dm3","dm6",
-        "danrer7","pantro4","susscr3","tair10","equcab2"),
+        "danrer7","pantro4","susscr3","tair10","equcab3"),
     refdb=c("ensembl","ucsc","refseq"),
     version="auto",
     transLevel=c("gene","transcript","exon"),
@@ -387,14 +387,14 @@ metaseqr2 <- function(
         if (!.userOrg(org,localDb) && is.null(annotation))
             checkTextArgs("org",org,c("hg18","hg19","hg38","mm9","mm10","mm39",
                 "rn5","rn6","dm3","dm6","danrer7","pantro4","susscr3","tair10",
-                "equcab2"),multiarg=FALSE)
+                "equcab3"),multiarg=FALSE)
     }
     else if (is.null(annotation) 
         && !(is.character(localDb) || file.exists(localDb))) {
         # So only some annotations can be fetched on-the-fly
         checkTextArgs("org",org,c("hg18","hg19","hg38","mm9","mm10","mm39",
             "rn5","rn6","dm3","dm6","danrer7","pantro4","susscr3","tair10",
-            "equcab2"),
+            "equcab3"),
             multiarg=FALSE)
     }
     if (is.character(localDb) && file.exists(localDb)) {

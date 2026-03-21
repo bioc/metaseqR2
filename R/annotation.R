@@ -1913,7 +1913,7 @@ getUcscUtr <- function(org,refdb="ucsc") {
     # There is an exception for organisms that do not exist in UCSC databases
     # so we must use RefSeq
     ucscUnsup <- c("rn5","rn6","dm3","dm6","danrer7","danrer10","danrer11",
-        "pantro4","pantro5","susscr3","susscr11","equcab2")
+        "pantro4","pantro5","susscr3","susscr11","equcab3")
     if (refdb == "ucsc" && !(org %in% ucscUnsup))
         command <- commandUcsc
     
@@ -2009,7 +2009,7 @@ getUcscOrganism <- function(org) {
         pantro5 = { return("panTro5") },
         susscr3 = { return("susScr3") },
         susscr11 = { return("susScr11") },
-        equcab2 = { return("equCab2") },
+        equcab3 = { return("equCab3") },
         tair10 = { return("TAIR10") }
     )
 }
@@ -2077,8 +2077,8 @@ getBsOrganism <- function(org) {
                 immediate.=TRUE)
             return(NA)
         },
-        equcab2 = {
-            warning("equCab2 is not supported by BSgenome! Please use Ensembl ",
+        equcab3 = {
+            warning("equCab3 is not supported by BSgenome! Please use Ensembl ",
                 "as annotation source if GC content is important.",
                 immediate.=TRUE)
             return(NA)
@@ -2139,6 +2139,8 @@ getHost <- function(org,ver=NULL) {
         
     if (org == "tair10")
         return("plants.ensembl.org")
+    if (org == "hg19")
+        return("grch37.ensembl.org")
     
     aver <- getUcscToEnsembl(org)
     if (!is.null(ver) && !(ver %in% aver)) {
@@ -2191,23 +2193,23 @@ ucscToEnsembl <- function() {
     return(list(
         hg18=54,
         hg19=75,
-        hg38=95:111,
+        hg38=110:115,
         mm9=54,
         mm10=102,
-        mm39=103:115,
+        mm39=110:115,
         rn5=77,
-        rn6=100:115,
+        rn6=110:115,
         dm3=77,
-        dm6=100:115,
+        dm6=110:115,
         danrer7=77,
         danrer10=80,
-        danrer11=100:115,
-        pantro4=c(77,80),
-        pantro5=100:115,
+        danrer11=110:115,
+        pantro4=80,
+        pantro5=110:115,
         #pantro6=,
-        susscr3=c(77,80),
-        susscr11=100:115,
-        equcab2=77
+        susscr3=80,
+        susscr11=110:115,
+        equcab3=110:115
     ))
 }
 
@@ -2231,7 +2233,7 @@ getDataset <- function(org) {
         #pantro6 = { return("ptroglodytes_gene_ensembl") },
         susscr3 = { return("sscrofa_gene_ensembl") },
         susscr11 = { return("sscrofa_gene_ensembl") },
-        equcab2 = { return("ecaballus_gene_ensembl") },
+        equcab3 = { return("ecaballus_gene_ensembl") },
         tair10 = { return("athaliana_eg_gene") }
     )
 }
@@ -2362,7 +2364,7 @@ getValidChrs <- function(org) {
                 "chr8","chr9","chrX","chrY"
             ))
         },
-        equcab2 = {
+        equcab3 = {
             return(c(
                 "chr1","chr10","chr11","chr12","chr13","chr14","chr15","chr16",
                 "chr17","chr18","chr19","chr2","chr20","chr21","chr22","chr23",
@@ -2509,7 +2511,7 @@ getValidChrsWithMit <- function(org) {
                 "chr8","chr9","chrX","chrY","chrM"
             ))
         },
-        equcab2 = {
+        equcab3 = {
             return(c(
                 "chr1","chr10","chr11","chr12","chr13","chr14","chr15","chr16",
                 "chr17","chr18","chr19","chr2","chr20","chr21","chr22","chr23",
@@ -2791,7 +2793,7 @@ getBiotypes <- function(org) {
                 "misc_RNA","non_coding","IG_C_gene","IG_J_gene",
                 "IG_V_gene","IG_V_pseudogene"))
         },
-        equcab2 = {
+        equcab3 = {
             return(c("miRNA","misc_RNA","protein_coding","pseudogene","rRNA",
                 "processed_pseudogene","snoRNA","snRNA"))
         },
@@ -2810,7 +2812,7 @@ getSupportedOrganisms <- function() {
     return(c("hg18","hg19","hg38","mm9","mm10","mm39","rn5","rn6","dm3","dm6",
         "danrer7","danrer10","danrer11","pantro4","pantro5","susscr3",
         #"pantro6",
-        "susscr11","equcab2","tair10"))
+        "susscr11","equcab3","tair10"))
 }
 
 getSupportedUcscDbs <- function() {
