@@ -8,7 +8,7 @@
         embedCols = list(idCol = 4, gcCol = NA, nameCol = NA, 
             btCol = NA),
         annotation = NULL, org = c("hg18", "hg19", "hg38", "mm9", 
-            "mm10", "rn5", "rn6", "dm3", "dm6", "danrer7", 
+            "mm10", "mm39", "rn5", "rn6", "dm3", "dm6", "danrer7", 
             "pantro4", "susscr3", "tair10", "equcab3"),
         refdb = c("ensembl", "ucsc", "refseq"), version = "auto",
         transLevel = c("gene", "transcript", "exon"),
@@ -762,7 +762,7 @@
     independent report that does not need to be served through 
     a web-server and can be viewed locally. Although Dexie is 
     very efficient, some caution is required as \code{knitr} and 
-    \code{\link{render}} from \code{rmarkdown} are not very 
+    \code{render} from \code{rmarkdown} are not very 
     memory efficient when rendering larger HTML files. A large 
     HTML file may be produced when analyzing a large dataset
     with a lot of contrasts that may result in a lot of tables.
