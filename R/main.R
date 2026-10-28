@@ -264,8 +264,11 @@ metaseqr2 <- function(
     if (runLog) {
         if (file.exists(file.path(PROJECT_PATH$logs,"metaseqr_run.log")))
             unlink(file.path(PROJECT_PATH$logs,"metaseqr_run.log"))
-        logger <- create.logger(logfile=file.path(PROJECT_PATH$logs,
-            "metaseqr_run.log"),level=2,logformat="%d %c %m")
+        #logger <- create.logger(logfile=file.path(PROJECT_PATH$logs,
+        #    "metaseqr_run.log"),level=2,logformat="%d %c %m")
+        logger <- logger(threshold="INFO",appenders=list(console_appender(),
+            file_appender(file=file.path(PROJECT_PATH$logs,"metaseqr_run.log"), 
+            append=TRUE)))
     }
     else
         logger <- NULL

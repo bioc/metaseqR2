@@ -8,7 +8,10 @@ normalizeEdaseq <- function(geneCounts,sampleList,normArgs=NULL,
         gl <- NULL
         if (!is.null(attr(geneData,"geneLength")))
             gl <- attr(geneData,"geneLength")
+        # For some reason, rownames are not preserved in conversion...
+        rn <- names(geneData)
         geneData <- as.data.frame(geneData)
+        rownames(geneData) <- rn
         geneData <- geneData[,c(1,2,3,6,7,5,8,9)]
         if (!is.null(gl))
             attr(geneData,"geneLength") <- gl

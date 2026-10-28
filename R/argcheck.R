@@ -167,9 +167,9 @@ checkLibsize <- function(libsizeList,sampleList) {
 
 checkPackages <- function(m,p) {
     # Check meta-analysis packages
-    if ("whitlock" %in% m && !requireNamespace("survcomp"))
-        stopwrap("Bioconductor package survcomp is required for \"whitlock\" ",
-            "p-value meta analysis!")
+    #if ("whitlock" %in% m && !requireNamespace("survcomp"))
+    #    stopwrap("Bioconductor package survcomp is required for \"whitlock\" ",
+    #        "p-value meta analysis!")
     if ("venn" %in% p && !requireNamespace("VennDiagram"))
         stopwrap("R package VennDiagram is required for some of the selected ",
             "QC plots!")

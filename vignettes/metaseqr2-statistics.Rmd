@@ -750,7 +750,6 @@ would benefit from the existence of all the following packages:
  * stats
  * stringr
  * SummarizedExperiment
- * survcomp
  * TCC
  * utils
  * VennDiagram

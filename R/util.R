@@ -2097,8 +2097,7 @@ makeReportMessages <- function(lang) {
                     weight="PANDORA weighted p-value across results",
                     pandora="PANDORA weighted p-value across results",
                     simes="Simes correction and combination method",
-                    whitlock=paste("Whitlock's Z-transformation method",
-                        "(Bioconductor package survcomp)"),
+                    whitlock="Whitlock's Z-transformation method",
                     harmonic="Wilson's Harmonic mean of p-values",
                     none=paste("no meta-analysis, reported p-values from the",
                         "first supplied statistical algorithm")
@@ -2998,11 +2997,11 @@ disp <- function(...) {
     levalias <- c("one","two","three","four","five")
     if (!is.null(logger)) {
         switch(levalias[level(logger)],
-            one = { debug(logger,paste0(...)) },
-            two = { info(logger,gsub("\\n","",paste0(...))) },
-            three = { warn(logger,gsub("\\n","",paste0(...))) },
-            four = { error(logger,gsub("\\n","",paste0(...))) },
-            five = { fatal(logger,gsub("\\n","",paste0(...))) }
+            one = { log_debug(logger,paste0(...)) },
+            two = { log_info(logger,gsub("\\n","",paste0(...))) },
+            three = { log_warn(logger,gsub("\\n","",paste0(...))) },
+            four = { log_error(logger,gsub("\\n","",paste0(...))) },
+            five = { log_fatal(logger,gsub("\\n","",paste0(...))) }
         )
     }
 }
@@ -3011,9 +3010,9 @@ stopwrap <- function(...,t="fatal") {
     logger <- get("LOGGER",envir=metaEnv)
     if (!is.null(logger)) {
         if (t=="fatal")
-            fatal(logger,gsub("\\n","",paste0(...)))
+            log_fatal(logger,gsub("\\n","",paste0(...)))
         else
-            error(logger,gsub("\\n","",paste0(...)))
+            log_error(logger,gsub("\\n","",paste0(...)))
     }
     stop(paste0(...))
 }
@@ -3021,7 +3020,7 @@ stopwrap <- function(...,t="fatal") {
 warnwrap <- function(...,now=FALSE) {
     logger <- get("LOGGER",envir=metaEnv)
     if (!is.null(logger))
-        warn(logger,gsub("\\n","",paste0(...)))
+        log_warn(logger,gsub("\\n","",paste0(...)))
     if (now)
         warning(paste0(...),call.=FALSE,immediate.=TRUE)
     else

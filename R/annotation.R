@@ -2159,7 +2159,7 @@ getHost <- function(org,ver=NULL) {
     i <- grep(as.character(ver),ea[,"version"])
     if (length(i) > 0) {
         if (ea[i,"current_release"] == "*")
-            return("http://www.ensembl.org")
+            return("https://e116.ensembl.org")
         else
             return(ea[i,"url"])
     }
@@ -3005,8 +3005,10 @@ annotationFromCustomGtf <- function(parsed,level=c("gene","transcript","exon"),
     
     gr$gc_content = rep(50,length(gr))
     ann <- as.data.frame(gr)
-    ann <- ann[,c(1:3,6,9,5,7,8)]
+    #ann <- ann[,c(1:3,6,9,5,7,8)]
     names(ann)[1] <- "chromosome"
+    ann <- ann[,c("chromosome","start","end","gene_id","gc_content","strand", 
+        "gene_name","biotype")]
     ann$chromosome <- as.character(ann$chromosome)
     ann <- ann[order(ann$chromosome,ann$start),]
     
@@ -3195,15 +3197,26 @@ annotationFromCustomGtf <- function(parsed,level=c("gene","transcript","exon"),
     names(activeLength) <- unique(sexon$gene_id)
     attr(sexon,"activeLength") <- activeLength
     
+    eann <- as.data.frame(sexon)
+    #eann <- eann[,c(1,2,3,6,8,5,7,9)]
+    #names(eann)[c(1,4)] <- c("chromosome","exon_id")
+    names(eann)[1] <- "chromosome"
+    eann <- eann[,c("chromosome","start","end","exon_id","gene_name","strand",
+        "gene_id","biotype")]
+    
     if (asdf) {
-        eann <- as.data.frame(sexon)
-        eann <- eann[,c(1,2,3,6,8,5,7,9)]
-        names(eann)[c(1,4)] <- c("chromosome","exon_id")
+        #eann <- as.data.frame(sexon)
+        #eann <- eann[,c(1,2,3,6,8,5,7,9)]
+        #names(eann)[c(1,4)] <- c("chromosome","exon_id")
         attr(eann,"activeLength") <- activeLength
         return(eann)
     }
-    else
-        return(sexon)
+    else {
+        #return(sexon)
+        eann <- GRanges(eann)
+        attr(eann,"activeLength") <- activeLength
+        return(eann)
+    }
 }
 
 # ann <- .makeGeneUtrFromTxDb(txdb,map,FALSE)
@@ -3372,20 +3385,37 @@ annotationFromCustomGtf <- function(parsed,level=c("gene","transcript","exon"),
     activeLength <- annList$length
     names(activeLength) <- unique(as.character(s3utr$gene_id))
     
+    sann <- as.data.frame(s3utr)
+    #sann <- sann[,c(1,2,3,6,8,5,7,9)]
+    #if (useMap)
+    #   names(sann)[c(1,4)] <- c("chromosome","gene_id")
+    #else {
+    #   sann <- sann[,c(1,2,3,7,5,6,4,8)]
+    #   names(sann)[c(1,4,7)] <- c("chromosome","gene_id","transcript_id")
+    #}
+    names(sann)[1] <- "chromosome"
+    sann <- sann[,c("chromosome","start","end","gene_id","gene_name","strand",
+        "gene_id","biotype")]
+    names(sann)[7] <- "gene_id"
+    
     if (asdf) {
-        sann <- as.data.frame(s3utr)
-        sann <- sann[,c(1,2,3,6,8,5,7,9)]
-        if (useMap)
-            names(sann)[c(1,4)] <- c("chromosome","gene_id")
-        else {
-            sann <- sann[,c(1,2,3,7,5,6,4,8)]
-            names(sann)[c(1,4,7)] <- c("chromosome","gene_id","transcript_id")
-        }
+        #sann <- as.data.frame(s3utr)
+        #sann <- sann[,c(1,2,3,6,8,5,7,9)]
+        #if (useMap)
+        #    names(sann)[c(1,4)] <- c("chromosome","gene_id")
+        #else {
+        #    sann <- sann[,c(1,2,3,7,5,6,4,8)]
+        #    names(sann)[c(1,4,7)] <- c("chromosome","gene_id","transcript_id")
+        #}
         attr(sann,"activeLength") <- activeLength
         return(sann)
     }
-    else
-        return(s3utr)
+    else {
+        #return(s3utr)
+        sann <- GRanges(sann)
+        attr(sann,"activeLength") <- activeLength
+        return(sann)
+    }
 }
 
 # ann <- .makeTranscriptGeneFromTxDb(txdb,map,FALSE)
@@ -3424,9 +3454,11 @@ annotationFromCustomGtf <- function(parsed,level=c("gene","transcript","exon"),
     }
     
     ann <- as.data.frame(gr)
-    ann <- ann[,c(1,2,3,6,7,5,8,9)]
-    names(ann)[c(1,4)] <- c("chromosome","transcript_id")
+    #ann <- ann[,c(1,2,3,6,7,5,8,9)]
+    names(ann)[c(1,7)] <- c("chromosome","transcript_id")
     ann$chromosome <- as.character(ann$chromosome)
+    ann <- ann[,c("chromosome","start","end","transcript_id","gene_id",
+        "strand","gene_name","biotype")]
     ann <- ann[order(ann$chromosome,ann$start),]
     
     if (asdf)
@@ -3485,15 +3517,23 @@ annotationFromCustomGtf <- function(parsed,level=c("gene","transcript","exon"),
     #names(activeLength) <- as.character(stranscript$transcript_id)
     names(activeLength) <- unique(stranscript$gene_id)
     
+    sann <- as.data.frame(stranscript)
+    #sann <- sann[,c(1,2,3,6,8,5,7,9)]
+    #names(sann)[c(1,4)] <- c("chromosome","transcript_id")
+    names(sann)[1] <- "chromosome"
+    sann <- sann[,c("chromosome","start","end","transcript_id","gene_id",
+        "strand","gene_name","biotype")]
+        
     if (asdf) {
-        sann <- as.data.frame(stranscript)
-        sann <- sann[,c(1,2,3,6,8,5,7,9)]
-        names(sann)[c(1,4)] <- c("chromosome","transcript_id")
         attr(sann,"activeLength") <- activeLength
         return(sann)
     }
-    else
-        return(stranscript)
+    else {
+        #return(stranscript)
+        sann <- GRanges(sann)
+        attr(sann,"activeLength") <- activeLength
+        return(sann)
+    }
 }
 
 # ann <- .makeTranscriptExonFromTxDb(txdb,map,FALSE)
@@ -3576,8 +3616,11 @@ annotationFromCustomGtf <- function(parsed,level=c("gene","transcript","exon"),
     }
     
     #ann <- utr[,c(1,2,3,4,7,6,8,9)]
-    ann <- utr[,c(1,2,3,4,8,6,9,10)]
+    #ann <- utr[,c(1,2,3,4,8,6,9,10)]
+    ann <- utr
     names(ann)[1] <- "chromosome"
+    ann <- ann[,c("chromosome","start","end","transcript_id","gene_name",
+        "strand","gene_id","biotype")]
     ann$chromosome <- as.character(ann$chromosome)
     ann <- ann[order(ann$chromosome,ann$start),]
     
